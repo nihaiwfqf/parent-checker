@@ -26,7 +26,7 @@ const inp = document.getElementById('name');
 const btn = document.getElementById('go');
 
 const generations = {
-  '自己':'erro',
+  '自己':'你自己辈分',
   '父亲':'哎？！不要乱叫爸爸',
   '爹':'额，你问我我也不知道',
   '妈妈':'父母辈',
@@ -40,7 +40,7 @@ const generations = {
 
 const funny = [
   '神秘未知辈分',
-  'ber?这谁知道，自己google去',
+  'ber?这谁知道，自己google去'
 ];
 
 function randomFunny(){
@@ -49,8 +49,8 @@ function randomFunny(){
 
 function judge(word){
   word = (word||'').trim();
-  if(generations[word]) return generations[word];
-  if(!word) return '（未填写）';
+  if(word === '') return '（未填写）';
+  if(generations.hasOwnProperty(word)) return generations[word];
   return randomFunny();
 }
 

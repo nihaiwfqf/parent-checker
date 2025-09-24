@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>辈分计算器</title>
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:#071026; color:#e6eef8; display:flex; justify-content:center; align-items:center; height:100vh;}
+  .card{background:rgba(255,255,255,0.02); padding:20px; border-radius:14px; width:90%; max-width:500px; text-align:center;}
+  input{padding:10px;border-radius:8px;border:none;width:60%;margin-right:10px;}
+  button{padding:10px 14px;border-radius:10px;border:none;background:#60a5fa;color:#06202f;font-weight:600;cursor:pointer;}
+  .result{margin-top:20px;font-size:1.2rem; min-height:40px;}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>辈分计算器</h1>
+  <input id="name" type="text" placeholder="输入称呼（父亲/母亲/爷爷...）">
+  <button id="go">计算辈分</button>
+  <div class="result" id="result">等待输入并点击计算</div>
+</div>
+
+<script>
+const res = document.getElementById('result');
+const inp = document.getElementById('name');
+const btn = document.getElementById('go');
+
+const generations = {
+  '自己':'你自己',
+  '父亲':'父母辈',
+  '妈妈':'父母辈',
+  '母亲':'父母辈',
+  '爸爸':'父母辈',
+  '爷爷':'祖父母辈',
+  '奶奶':'祖父母辈',
+  '外公':'外祖父母辈',
+  '外婆':'外祖父母辈'
+};
+
+const funny = [
+  '外星人辈分',
+  '时间旅行者辈分',
+  '非二元辈分',
+  '神秘未知辈分'
+];
+
+function randomFunny(){
+  return funny[Math.floor(Math.random()*funny.length)];
+}
+
+function judge(word){
+  word = (word||'').trim();
+  if(generations[word]) return generations[word];
+  if(!word) return '（未填写）';
+  return randomFunny();
+}
+
+function showResult(text){
+  res.style.opacity=0;
+  setTimeout(()=>{
+    res.textContent=text;
+    res.style.opacity=1;
+  },180);
+}
+
+btn.addEventListener('click', ()=>{
+  const val = inp.value.trim();
+  const r = judge(val);
+  showResult(r);
+});
+
+inp.addEventListener('keydown', e=>{
+  if(e.key==='Enter') btn.click();
+});
+</script>
+</body>
+</html>
